@@ -17,7 +17,7 @@ public class CheckMyGrades extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/LoginView.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainView.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("MyGrades");
