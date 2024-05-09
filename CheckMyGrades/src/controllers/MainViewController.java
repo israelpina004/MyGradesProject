@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 
 public class MainViewController {
 
@@ -15,10 +14,10 @@ public class MainViewController {
     private URL location;
     
     @FXML
-    private PasswordField password;
+    private Button grove;
     
     @FXML
-    private Button login;
+    private Button spitzer;
 
     @FXML
     void initialize() {

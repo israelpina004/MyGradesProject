@@ -20,7 +20,7 @@
             <Font name="Bai Jamjuree Bold" size="55.0" />
          </font>
       </Label>
-      <Label layoutX="263.0" layoutY="136.0" text="Admin Ver.">
+      <Label layoutX="245.0" layoutY="130.0" prefHeight="17.0" prefWidth="111.0" text="Admin Ver. (Beta)">
          <font>
             <Font name="Bai Jamjuree Bold" size="13.0" />
          </font>
@@ -31,6 +31,11 @@
          </font>
       </Label>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="269.0" mnemonicParsing="false" prefHeight="182.0" prefWidth="163.0" text="Grove School of Engineering" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="352.0" layoutY="269.0" mnemonicParsing="false" prefHeight="182.0" prefWidth="163.0" text="Spitzer School of Architecure" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="21.0" />
          </font>
