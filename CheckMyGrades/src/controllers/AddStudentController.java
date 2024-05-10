@@ -151,11 +151,11 @@ public class AddStudentController {
     		alert.show();
     	}
     	
-    	boolean isFieldEmpty = userFirstName.isEmpty() || userLastName.isEmpty() || userClass.isEmpty() || userGender.isEmpty() || userMajor.isEmpty() || userCourse.isEmpty();
+    	boolean isFieldEmpty = userFirstName == null || userLastName == null || userEMPLID == null || userClass == null || userGender == null || userMajor == null || userCourse == null;
     	if(isFieldEmpty) {
     		Alert alert = new Alert(Alert.AlertType.ERROR);
     		alert.setHeaderText(null);
-    		alert.setContentText("Please fill all text fields and choose from the choice box.");
+    		alert.setContentText("Please fill all text fields and choose from the choice boxes.");
     		alert.show();
     	}
     	else if(userEMPLID.length() != 9) {
