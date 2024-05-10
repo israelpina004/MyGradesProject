@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -9,10 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import dbConnection.DBHandler;
 
 public class AddStudentController {
 
@@ -23,66 +27,70 @@ public class AddStudentController {
     private URL location;
 
     @FXML
-    private TextField classification;
+    private ChoiceBox<String> classification;
+    
+    @FXML
+    private ChoiceBox<String> gender;
 
     @FXML
-    private TextField engAvg;
+    private ChoiceBox<String> major;
 
     @FXML
     private TextField firstName;
 
     @FXML
-    private Button grove;
-
-    @FXML
-    private TextField histAvg;
-
-    @FXML
     private TextField lastName;
 
     @FXML
-    private TextField mathAvg;
-
+    private TextField course;
+    
+    @FXML
+    private TextField courseGrade;
+    
+    @FXML
+    private Button grove;
+    
     @FXML
     private Button menu;
-
-    @FXML
-    private TextField sciAvg;
-
-    @FXML
-    private Button spitzer;
-
-    @FXML
-    private ChoiceBox<String> whatDept;
     
     @FXML
     private Button enterValues;
     
     private String userFirstName;
     private String userLastName;
+    private String userGender;
     private String userClass;
-    private int userMathAvg;
-    private int userEngAvg;
-    private int userSciAvg;
-    private int userHistAvg;
-    private String[] departments = {"Grove", "Spitzer"};
-    private String dept;
+    private String userMajor;
+    private String userCourse;
+    private double userCourseGrade;
+    private String[] classes = {"Freshman", "Sophomore", "Junior", "Senior"};
+    private String[] genders = {"Male", "Female", "Other"};
+    private String[] groveMajors = {"Biomedical Engineering", "Chemical Engineering", "Civil Engineering",
+    		"Computer Science", "Electrical Engineering", "Mechanical Engineering", "Computer Engineering",
+    		"Cybersecurity", "Data Science & Engineering", "Earth System Science & Environmental Engineering",
+    		"Information Systems", "Translational Medicine", "Sustainability in the Urban Environment"};
+    
+    private Connection connection;
+    private DBHandler handler;
 
     @FXML
     void initialize() {
-        assert classification != null : "fx:id=\"classification\" was not injected: check your FXML file 'AddStudent.fxml'.";
-        assert engAvg != null : "fx:id=\"engAvg\" was not injected: check your FXML file 'AddStudent.fxml'.";
+    	assert classification != null : "fx:id=\"classification\" was not injected: check your FXML file 'AddStudent.fxml'.";
+        assert courseGrade != null : "fx:id=\"engAvg\" was not injected: check your FXML file 'AddStudent.fxml'.";
+        assert enterValues != null : "fx:id=\"enterValues\" was not injected: check your FXML file 'AddStudent.fxml'.";
         assert firstName != null : "fx:id=\"firstName\" was not injected: check your FXML file 'AddStudent.fxml'.";
+        assert gender != null : "fx:id=\"gender\" was not injected: check your FXML file 'AddStudent.fxml'.";
         assert grove != null : "fx:id=\"grove\" was not injected: check your FXML file 'AddStudent.fxml'.";
-        assert histAvg != null : "fx:id=\"histAvg\" was not injected: check your FXML file 'AddStudent.fxml'.";
+        assert course != null : "fx:id=\"histAvg\" was not injected: check your FXML file 'AddStudent.fxml'.";
         assert lastName != null : "fx:id=\"lastName\" was not injected: check your FXML file 'AddStudent.fxml'.";
-        assert mathAvg != null : "fx:id=\"mathAvg\" was not injected: check your FXML file 'AddStudent.fxml'.";
+        assert major != null : "fx:id=\"major\" was not injected: check your FXML file 'AddStudent.fxml'.";
         assert menu != null : "fx:id=\"menu\" was not injected: check your FXML file 'AddStudent.fxml'.";
-        assert sciAvg != null : "fx:id=\"sciAvg\" was not injected: check your FXML file 'AddStudent.fxml'.";
-        assert spitzer != null : "fx:id=\"spitzer\" was not injected: check your FXML file 'AddStudent.fxml'.";
-        assert whatDept != null : "fx:id=\"whatDept\" was not injected: check your FXML file 'AddStudent.fxml'.";
         
-        whatDept.getItems().addAll(departments);
+        classification.getItems().addAll(classes);
+        gender.getItems().addAll(genders);
+        major.getItems().addAll(groveMajors);
+        
+        handler = new DBHandler();
     }
     
     @FXML
@@ -108,22 +116,36 @@ public class AddStudentController {
     	groveMenu.show();
     	groveMenu.setResizable(false);
     }
-    
-    @FXML
-    public void spitzerStudents(ActionEvent e) throws IOException {
-    	spitzer.getScene().getWindow().hide();
-    	
-    	Stage spitzerMenu = new Stage();
-    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/SpitzerStudentsMenu.fxml"));
-    	Scene scene = new Scene(root);
-    	spitzerMenu.setScene(scene);
-    	spitzerMenu.show();
-    	spitzerMenu.setResizable(false);
-    }
 
     @FXML
-    public void getDept(ActionEvent e) {
-    	dept = whatDept.getValue();
+    public void submitNewStudent(ActionEvent e) {
+    	userFirstName = firstName.getText();
+    	userLastName = lastName.getText();
+    	userClass = classification.getValue();
+    	userGender = gender.getValue();
+    	userMajor = major.getValue();
+    	userCourse = course.getText();
+    	
+    	try {
+    		userCourseGrade = Double.parseDouble(courseGrade.getText());
+    	}
+    	catch(NumberFormatException ex) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please enter a number for the students grade.");
+    		alert.show();
+    	}
+    	
+    	boolean isFieldEmpty = userFirstName.isEmpty() || userLastName.isEmpty() || userClass.isEmpty() || userGender.isEmpty() || userMajor.isEmpty() || userCourse.isEmpty();
+    	if(isFieldEmpty) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please fill all text fields and choose from the choice box.");
+    		alert.show();
+    	}
+    	
+    	//String insertQuery = "insert into "
+    	
     }
     
 }

@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controllers.AddStudentController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddStudentController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="600.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -24,14 +23,20 @@
       </Label>
       <TextField fx:id="firstName" layoutX="39.0" layoutY="171.0" />
       <TextField fx:id="lastName" layoutX="39.0" layoutY="242.0" />
-      <TextField fx:id="classification" layoutX="39.0" layoutY="309.0" />
-      <TextField fx:id="mathAvg" layoutX="401.0" layoutY="172.0" />
-      <TextField fx:id="engAvg" layoutX="401.0" layoutY="242.0" />
-      <TextField fx:id="sciAvg" layoutX="401.0" layoutY="310.0" />
-      <TextField fx:id="histAvg" layoutX="401.0" layoutY="382.0" />
-      <ChoiceBox fx:id="whatDept" layoutX="44.0" layoutY="383.0" prefWidth="150.0" />
-      <Button fx:id="grove" layoutX="52.0" layoutY="490.0" mnemonicParsing="false" onAction="#groveStudents" text="Go to Grove Students" />
-      <Button fx:id="menu" layoutX="250.0" layoutY="490.0" mnemonicParsing="false" onAction="#mainMenu" text="Return to Menu" />
-      <Button fx:id="spitzer" layoutX="411.0" layoutY="490.0" mnemonicParsing="false" onAction="#spitzerStudents" text="Go to Spitzer Students" />
+      <TextField fx:id="course" layoutX="401.0" layoutY="242.0" />
+      <TextField fx:id="courseGrade" layoutX="401.0" layoutY="310.0" />
+      <ChoiceBox fx:id="gender" layoutX="44.0" layoutY="310.0" prefWidth="150.0" />
+      <Button fx:id="grove" layoutX="133.0" layoutY="498.0" mnemonicParsing="false" onAction="#groveStudents" text="Go to Grove Students" />
+      <Button fx:id="menu" layoutX="350.0" layoutY="498.0" mnemonicParsing="false" onAction="#mainMenu" text="Return to Menu" />
+      <Button fx:id="enterValues" layoutX="438.0" layoutY="382.0" mnemonicParsing="false" onAction="#submitNewStudent" text="Enter Values" />
+      <ChoiceBox fx:id="classification" layoutX="44.0" layoutY="382.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="major" layoutX="405.0" layoutY="171.0" prefWidth="150.0" />
+      <Label layoutX="89.0" layoutY="154.0" style="-fx-background-color: white;" text="First Name" />
+      <Label layoutX="90.0" layoutY="225.0" style="-fx-background-color: white;" text="Last Name" />
+      <Label layoutX="98.0" layoutY="292.0" style="-fx-background-color: white;" text="Gender" />
+      <Label layoutX="103.0" layoutY="365.0" style="-fx-background-color: white;" text="Class" />
+      <Label layoutX="465.0" layoutY="154.0" style="-fx-background-color: white;" text="Major" />
+      <Label layoutX="461.0" layoutY="225.0" style="-fx-background-color: white;" text="Course" />
+      <Label layoutX="442.0" layoutY="292.0" style="-fx-background-color: white;" text="Course Grade" />
    </children>
 </AnchorPane>

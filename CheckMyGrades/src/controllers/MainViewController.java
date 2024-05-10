@@ -24,12 +24,8 @@ public class MainViewController {
     private Button grove;
 
     @FXML
-    private Button spitzer;
-
-    @FXML
     void initialize() {
         assert grove != null : "fx:id=\"grove\" was not injected: check your FXML file 'MainView.fxml'.";
-        assert spitzer != null : "fx:id=\"spitzer\" was not injected: check your FXML file 'MainView.fxml'.";
 
     }
     
@@ -43,18 +39,6 @@ public class MainViewController {
     	groveMenu.setScene(scene);
     	groveMenu.show();
     	groveMenu.setResizable(false);
-    }
-    
-    @FXML
-    public void spitzerStudents(ActionEvent e) throws IOException {
-    	spitzer.getScene().getWindow().hide();
-    	
-    	Stage spitzerMenu = new Stage();
-    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/SpitzerStudentsMenu.fxml"));
-    	Scene scene = new Scene(root);
-    	spitzerMenu.setScene(scene);
-    	spitzerMenu.show();
-    	spitzerMenu.setResizable(false);
     }
 
 }
