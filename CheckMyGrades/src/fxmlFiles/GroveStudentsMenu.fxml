@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GroveController">
    <children>
@@ -14,15 +15,20 @@
             <Image url="@../../../../../Downloads/ccny.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="addStudent" layoutX="257.0" layoutY="470.0" mnemonicParsing="false" text="Add Student" />
-      <ComboBox fx:id="selectStudent" layoutX="225.0" layoutY="45.0" prefWidth="150.0" promptText="Select Student ID:" />
-      <Label fx:id="firstName" layoutX="14.0" layoutY="140.0" style="-fx-background-color: white;" />
-      <Label fx:id="lastName" layoutX="14.0" layoutY="213.0" style="-fx-background-color: white;" />
-      <Label fx:id="classification" layoutX="14.0" layoutY="292.0" style="-fx-background-color: white;" />
-      <Label fx:id="mathAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="140.0" style="-fx-background-color: white;" />
-      <Label fx:id="engAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="213.0" style="-fx-background-color: white;" />
-      <Label fx:id="sciAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="292.0" style="-fx-background-color: white;" />
-      <Label fx:id="histAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="368.0" style="-fx-background-color: white;" />
+      <Button fx:id="addStudent" layoutX="257.0" layoutY="470.0" mnemonicParsing="false" onAction="#addStudentScreen" text="Add Student" />
+      <ComboBox fx:id="selectStudent" layoutX="224.0" layoutY="127.0" prefWidth="150.0" promptText="Select Student ID:" />
       <Button fx:id="menu" layoutX="249.0" layoutY="521.0" mnemonicParsing="false" onAction="#mainMenu" text="Return to Menu" />
+      <Label layoutX="73.0" layoutY="48.0" text="Grove School of Engineering">
+         <font>
+            <Font name="Bai Jamjuree Regular" size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="firstName" layoutX="14.0" layoutY="189.0" />
+      <Label fx:id="lastName" layoutX="14.0" layoutY="251.0" />
+      <Label fx:id="classification" layoutX="14.0" layoutY="320.0" />
+      <Label fx:id="mathAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="189.0" />
+      <Label fx:id="engAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="251.0" />
+      <Label fx:id="sciAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="320.0" />
+      <Label fx:id="histAvg" alignment="CENTER_RIGHT" layoutX="556.0" layoutY="381.0" />
    </children>
 </AnchorPane>
