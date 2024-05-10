@@ -78,6 +78,17 @@ public class SpitzerController {
     	mainScreen.show();
     	mainScreen.setResizable(false);
     }
+    
+    public void addStudentScreen(ActionEvent e) throws IOException {
+    	addStudent.getScene().getWindow().hide();
+    	
+    	Stage add = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/AddStudent.fxml"));
+    	Scene scene = new Scene(root);
+    	add.setScene(scene);
+    	add.show();
+    	add.setResizable(false);
+    }
 
 }
 
