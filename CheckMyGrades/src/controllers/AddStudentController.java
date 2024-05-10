@@ -40,6 +40,9 @@ public class AddStudentController {
 
     @FXML
     private TextField lastName;
+    
+    @FXML
+    private TextField emplid;
 
     @FXML
     private TextField course;
@@ -58,6 +61,7 @@ public class AddStudentController {
     
     private String userFirstName;
     private String userLastName;
+    private String userEMPLID;
     private String userGender;
     private String userClass;
     private String userMajor;
@@ -121,6 +125,7 @@ public class AddStudentController {
     public void submitNewStudent(ActionEvent e) {
     	userFirstName = firstName.getText();
     	userLastName = lastName.getText();
+    	userEMPLID = emplid.getText();
     	userClass = classification.getValue();
     	userGender = gender.getValue();
     	userMajor = major.getValue();
@@ -136,6 +141,16 @@ public class AddStudentController {
     		alert.show();
     	}
     	
+    	try {
+    		Integer.parseInt(userEMPLID);
+    	}
+    	catch(NumberFormatException ex) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please enter a 9 digit number for the students EMPLID.");
+    		alert.show();
+    	}
+    	
     	boolean isFieldEmpty = userFirstName.isEmpty() || userLastName.isEmpty() || userClass.isEmpty() || userGender.isEmpty() || userMajor.isEmpty() || userCourse.isEmpty();
     	if(isFieldEmpty) {
     		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -143,8 +158,12 @@ public class AddStudentController {
     		alert.setContentText("Please fill all text fields and choose from the choice box.");
     		alert.show();
     	}
-    	
-    	//String insertQuery = "insert into "
+    	else if(userEMPLID.length() != 9) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please enter a 9 digit number for the students EMPLID.");
+    		alert.show();
+    	}
     	
     }
     
