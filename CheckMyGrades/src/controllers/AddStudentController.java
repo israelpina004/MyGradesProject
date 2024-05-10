@@ -54,6 +54,19 @@ public class AddStudentController {
 
     @FXML
     private ChoiceBox<String> whatDept;
+    
+    @FXML
+    private Button enterValues;
+    
+    private String userFirstName;
+    private String userLastName;
+    private String userClass;
+    private int userMathAvg;
+    private int userEngAvg;
+    private int userSciAvg;
+    private int userHistAvg;
+    private String[] departments = {"Grove", "Spitzer"};
+    private String dept;
 
     @FXML
     void initialize() {
@@ -68,7 +81,8 @@ public class AddStudentController {
         assert sciAvg != null : "fx:id=\"sciAvg\" was not injected: check your FXML file 'AddStudent.fxml'.";
         assert spitzer != null : "fx:id=\"spitzer\" was not injected: check your FXML file 'AddStudent.fxml'.";
         assert whatDept != null : "fx:id=\"whatDept\" was not injected: check your FXML file 'AddStudent.fxml'.";
-
+        
+        whatDept.getItems().addAll(departments);
     }
     
     @FXML
@@ -107,6 +121,10 @@ public class AddStudentController {
     	spitzerMenu.setResizable(false);
     }
 
-
+    @FXML
+    public void getDept(ActionEvent e) {
+    	dept = whatDept.getValue();
+    }
+    
 }
 
