@@ -3,6 +3,9 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -76,6 +79,8 @@ public class AddStudentController {
     
     private Connection connection;
     private DBHandler handler;
+    private PreparedStatement pst;
+    private Statement statement;
 
     @FXML
     void initialize() {
@@ -147,7 +152,7 @@ public class AddStudentController {
     	catch(NumberFormatException ex) {
     		Alert alert = new Alert(Alert.AlertType.ERROR);
     		alert.setHeaderText(null);
-    		alert.setContentText("Please enter a 9 digit number for the students EMPLID.");
+    		alert.setContentText("Please enter an 8 digit number for the students EMPLID.");
     		alert.show();
     	}
     	
@@ -158,12 +163,102 @@ public class AddStudentController {
     		alert.setContentText("Please fill all text fields and choose from the choice boxes.");
     		alert.show();
     	}
-    	else if(userEMPLID.length() != 9) {
+    	else if(userEMPLID.length() != 8) {
     		Alert alert = new Alert(Alert.AlertType.ERROR);
     		alert.setHeaderText(null);
-    		alert.setContentText("Please enter a 9 digit number for the students EMPLID.");
+    		alert.setContentText("Please enter an 8 digit number for the students EMPLID.");
     		alert.show();
     	}
+    	
+    	connection = handler.getConnection();
+    	
+    	String insert_into_majors = "replace into students_majors(student_id, department, major)" +
+    	"values(?,?,?)";
+    	try {
+    		pst = connection.prepareStatement(insert_into_majors);
+    		
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	try {
+    		pst.setString(1, userEMPLID);
+    		pst.setString(2, "Grove School of Engineering");
+    		pst.setString(3, userMajor);
+    		
+    		pst.executeUpdate();
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	try {
+	    	statement = connection.createStatement();
+	    	String sort_table = "select * from students_majors order by student_id";
+	    	statement.execute(sort_table);
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	
+    	String insert_into_info = "replace into students_info(student_id, first_name, last_name, class, gender, gpa)" + 
+    	"values(?,?,?,?,?,?)";
+    	try {
+    		pst = connection.prepareStatement(insert_into_info);
+    		
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	try {
+    		pst.setString(1, userEMPLID);
+    		pst.setString(2, userFirstName);
+    		pst.setString(3, userLastName);
+    		pst.setString(4, userClass);
+    		pst.setString(5, userGender);
+    		pst.setDouble(6, 0.0);
+    		
+    		pst.executeUpdate();
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	try {
+	    	statement = connection.createStatement();
+	    	String sort_table = "select * from students_info order by student_id";
+	    	statement.execute(sort_table);
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	
+    	String insert_into_grades = "replace into students_grades(student_id, course, course_grade)" + 
+    	"values(?, ?, ?)";
+    	try {
+    		pst = connection.prepareStatement(insert_into_grades);
+    		
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	try {
+    		pst.setString(1, userEMPLID);
+    		pst.setString(2, userCourse);
+    		pst.setDouble(3, userCourseGrade);;
+    		
+    		pst.executeUpdate();
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	try {
+	    	statement = connection.createStatement();
+	    	String sort_table = "select * from students_grades order by student_id";
+	    	statement.execute(sort_table);
+    	}
+    	catch(SQLException ex) {
+    		ex.printStackTrace();
+    	}
+    	
     	
     }
     

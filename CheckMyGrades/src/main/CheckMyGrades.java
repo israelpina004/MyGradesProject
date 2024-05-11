@@ -27,3 +27,4 @@ public class CheckMyGrades extends Application {
 		launch(args);
 	}
 }
+

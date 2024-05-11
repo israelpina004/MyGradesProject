@@ -36,7 +36,7 @@
       <Label layoutX="98.0" layoutY="292.0" style="-fx-background-color: white;" text="Gender" />
       <Label layoutX="464.0" layoutY="154.0" style="-fx-background-color: white;" text="Class" />
       <Label layoutX="466.0" layoutY="225.0" style="-fx-background-color: white;" text="Major" />
-      <Label layoutX="461.0" layoutY="292.0" style="-fx-background-color: white;" text="Course" />
+      <Label layoutX="443.0" layoutY="292.0" style="-fx-background-color: white;" text="Course Code" />
       <Label layoutX="442.0" layoutY="365.0" style="-fx-background-color: white;" text="Course Grade" />
       <TextField fx:id="emplid" layoutX="38.0" layoutY="383.0" />
       <Label layoutX="95.0" layoutY="365.0" style="-fx-background-color: White;" text="EMPLID" />
