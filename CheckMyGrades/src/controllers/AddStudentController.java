@@ -128,8 +128,8 @@ public class AddStudentController {
 
     @FXML
     public void submitNewStudent(ActionEvent e) {
-    	userFirstName = firstName.getText();
-    	userLastName = lastName.getText();
+    	userFirstName = firstName.getText().toUpperCase();
+    	userLastName = lastName.getText().toUpperCase();
     	userEMPLID = emplid.getText();
     	userClass = classification.getValue();
     	userGender = gender.getValue();
@@ -258,8 +258,32 @@ public class AddStudentController {
     	catch(SQLException ex) {
     		ex.printStackTrace();
     	}
+    	try {
+    		pst.close();
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Student has been successfully added.");
+        alert.showAndWait();
+        clearFields();
     	
     	
+    	clearFields();
+    }
+    
+    public void clearFields(){
+        firstName.clear();
+        lastName.clear();
+        emplid.clear();
+        classification.setValue(null);
+        gender.setValue(null);
+        major.setValue(null);
+        course.clear();
+        courseGrade.clear();
     }
     
 }

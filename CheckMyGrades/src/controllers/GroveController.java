@@ -23,7 +23,7 @@ public class GroveController {
     private URL location;
 
     @FXML
-    private Button addStudent;
+    private Button addStudentHelp;
 
     @FXML
     private Label classification;
@@ -54,7 +54,7 @@ public class GroveController {
 
     @FXML
     void initialize() {
-        assert addStudent != null : "fx:id=\"addStudent\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
+        assert addStudentHelp != null : "fx:id=\"addStudent\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert classification != null : "fx:id=\"classification\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert engAvg != null : "fx:id=\"engAvg\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert firstName != null : "fx:id=\"firstName\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
@@ -79,15 +79,15 @@ public class GroveController {
     	mainScreen.setResizable(false);
     }
     
-    public void addStudentScreen(ActionEvent e) throws IOException {
-    	addStudent.getScene().getWindow().hide();
+    public void addStudentHelpScreen(ActionEvent e) throws IOException {
+    	addStudentHelp.getScene().getWindow().hide();
     	
-    	Stage add = new Stage();
-    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/AddStudent.fxml"));
+    	Stage addNotes = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/AddStudentHelp.fxml"));
     	Scene scene = new Scene(root);
-    	add.setScene(scene);
-    	add.show();
-    	add.setResizable(false);
+    	addNotes.setScene(scene);
+    	addNotes.show();
+    	addNotes.setResizable(false);
     }
 
 }
