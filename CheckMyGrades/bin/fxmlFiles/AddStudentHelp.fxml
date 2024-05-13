@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controllers.AddStudentHelpController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="600.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Downloads/ccny.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="271.0" layoutY="71.0" text="Help:">
+         <font>
+            <Font name="Bai Jamjuree Regular" size="25.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_CENTER" layoutX="100.0" layoutY="147.0" prefHeight="99.0" prefWidth="400.0" style="-fx-background-color: white;" text="- You may update a student's grades by inputting their EMPLID and entering the course code and their new grade. You may also update a student's gender, name, and major if need be." wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="246.0" prefHeight="170.0" prefWidth="400.0" style="-fx-background-color: white;" text="- If you are attempting to update a student's information, review all the information you are about to enter.  Any incorrect information regarding the student's name, gender, major, class, or course grade will be updated and added to the database. You may, of course, simply go back and reenter the correct information." wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="addStudent" layoutX="275.0" layoutY="452.0" mnemonicParsing="false" onAction="#addStudentScreen" prefWidth="50.0" text="OK" />
+   </children>
+</AnchorPane>

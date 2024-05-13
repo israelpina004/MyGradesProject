@@ -2,8 +2,13 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import dbConnection.DBHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +56,10 @@ public class GroveController {
 
     @FXML
     private ComboBox<String> selectStudent;
+    
+    private DBHandler handler;
+    private Connection connection;
+    private PreparedStatement pst; 
 
     @FXML
     void initialize() {
@@ -64,7 +73,44 @@ public class GroveController {
         assert menu != null : "fx:id=\"menu\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert sciAvg != null : "fx:id=\"sciAvg\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert selectStudent != null : "fx:id=\"selectStudent\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
+        
+        
+        handler = new DBHandler();
+        connection = handler.getConnection();
+        String q1 = "Select student_id from students_info";
 
+        //Populate the combo box with student ids
+        try {
+            pst = connection.prepareStatement(q1);
+            ResultSet resultSet = pst.executeQuery();
+            while (resultSet.next()) {
+                selectStudent.getItems().add(resultSet.getString("student_id"));
+            }
+            pst.close();
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+
+         selectStudent.setOnAction(event -> {
+            String selectedStudentId = selectStudent.getValue();
+            if (selectedStudentId != null) {
+                try {
+                    // Gets student info from database
+                    pst = connection.prepareStatement("SELECT * FROM students_info WHERE student_id = ?");
+                    pst.setString(1, selectedStudentId);
+                    ResultSet resultSet = pst.executeQuery();
+                    if (resultSet.next()) {
+                        firstName.setText("First Name: " + resultSet.getString("first_name"));
+                        lastName.setText("Last Name: " + resultSet.getString("last_name"));
+                        classification.setText("Classification: " + resultSet.getString("class"));
+                    }
+
+                    pst.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     
     @FXML
