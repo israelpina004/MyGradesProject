@@ -28,7 +28,7 @@
       <ChoiceBox fx:id="gender" layoutX="43.0" layoutY="310.0" prefWidth="150.0" />
       <Button fx:id="grove" layoutX="51.0" layoutY="511.0" mnemonicParsing="false" onAction="#groveStudents" text="Go to Grove Students" />
       <Button fx:id="menu" layoutX="430.0" layoutY="511.0" mnemonicParsing="false" onAction="#mainMenu" text="Return to Menu" />
-      <Button fx:id="enterValues" layoutX="257.0" layoutY="511.0" mnemonicParsing="false" onAction="#submitNewStudent" text="Enter Values" />
+      <Button fx:id="enterValues" layoutX="257.0" layoutY="445.0" mnemonicParsing="false" onAction="#submitNewStudent" text="Enter Values" />
       <ChoiceBox fx:id="classification" layoutX="405.0" layoutY="171.0" prefWidth="150.0" />
       <ChoiceBox fx:id="major" layoutX="406.0" layoutY="242.0" prefWidth="150.0" />
       <Label layoutX="89.0" layoutY="154.0" style="-fx-background-color: white;" text="First Name" />
@@ -40,5 +40,6 @@
       <Label layoutX="442.0" layoutY="365.0" style="-fx-background-color: white;" text="Course Grade" />
       <TextField fx:id="emplid" layoutX="38.0" layoutY="383.0" />
       <Label layoutX="95.0" layoutY="365.0" style="-fx-background-color: White;" text="EMPLID" />
+      <Button fx:id="delete" layoutX="251.0" layoutY="511.0" mnemonicParsing="false" onAction="#deleteStudent" style="-fx-font-size: red;" text="Delete Student" />
    </children>
 </AnchorPane>

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -61,6 +63,9 @@ public class AddStudentController {
     
     @FXML
     private Button enterValues;
+    
+    @FXML
+    private Button delete;
     
     private String userFirstName;
     private String userLastName;
@@ -273,6 +278,83 @@ public class AddStudentController {
     	
     	
     	clearFields();
+    }
+    
+    @FXML
+    private void deleteStudent() {
+    	userEMPLID = emplid.getText();
+    	try {
+    		Integer.parseInt(userEMPLID);
+    	}
+    	catch(NumberFormatException ex) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please enter an 8 digit number for the students EMPLID.");
+    		alert.show();
+    	}
+    	
+    	if(userEMPLID.length() != 8) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please enter an 8 digit number for the students EMPLID.");
+    		alert.show();
+    	}
+    	else if(userEMPLID == null) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText(null);
+    		alert.setContentText("Please enter the student ID you wish to delete from the database.");
+    		alert.show();
+    	}
+    	else {
+    		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    		alert.setTitle("WARNING!");
+    		alert.setContentText("This will delete ALL information associated with the student ID, including "
+    				+ "the student's grades. Do you wish to proceed?");
+    		
+    		Optional<ButtonType> result = alert.showAndWait();
+    		if(result.get() == ButtonType.OK) {
+    	    	connection = handler.getConnection();
+    	    	
+    	    	try {
+    	    		String noSafeMode = "set SQL_SAFE_UPDATES=0";
+    	    		statement = connection.createStatement();
+    	    		statement.execute(noSafeMode);
+    	    	}
+    	    	catch(SQLException ex) {
+    	    		ex.printStackTrace();
+    	    	}
+    	    	
+    	    	try {
+    	    		String deleteStudent = "delete from students_info where student_id=" + userEMPLID;
+        	    	statement = connection.createStatement();
+        	    	statement.execute(deleteStudent);
+    	    	}
+    	    	catch(SQLException ex) {
+    	    		ex.printStackTrace();
+    	    	}
+    	    	try {
+    	    		String deleteStudent = "delete from students_majors where student_id=" + userEMPLID;
+        	    	statement = connection.createStatement();
+        	    	statement.execute(deleteStudent);
+    	    	}
+    	    	catch(SQLException ex) {
+    	    		ex.printStackTrace();
+    	    	}
+    	    	try {
+    	    		String deleteStudent = "delete from students_grades where student_id=" + userEMPLID;
+        	    	statement = connection.createStatement();
+        	    	statement.execute(deleteStudent);
+    	    	}
+    	    	catch(SQLException ex) {
+    	    		ex.printStackTrace();
+    	    	}
+    	    	alert = new Alert(Alert.AlertType.INFORMATION);
+    	        alert.setTitle("Information Dialog");
+    	        alert.setHeaderText(null);
+    	        alert.setContentText("Student has been successfully deleted.");
+    	        alert.show();
+    		}
+    	}
     }
     
     public void clearFields(){

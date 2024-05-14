@@ -34,25 +34,19 @@ public class GroveController {
     private Label classification;
 
     @FXML
-    private Label engAvg;
-
-    @FXML
     private Label firstName;
-
-    @FXML
-    private Label histAvg;
 
     @FXML
     private Label lastName;
 
     @FXML
-    private Label mathAvg;
+    private Label gpa;
 
+    @FXML
+    private Label gender;
+    
     @FXML
     private Button menu;
-
-    @FXML
-    private Label sciAvg;
 
     @FXML
     private ComboBox<String> selectStudent;
@@ -68,20 +62,16 @@ public class GroveController {
     void initialize() {
         assert addStudentHelp != null : "fx:id=\"addStudent\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert classification != null : "fx:id=\"classification\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
-        assert engAvg != null : "fx:id=\"engAvg\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert firstName != null : "fx:id=\"firstName\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
-        assert histAvg != null : "fx:id=\"histAvg\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert lastName != null : "fx:id=\"lastName\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
-        assert mathAvg != null : "fx:id=\"mathAvg\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert menu != null : "fx:id=\"menu\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
-        assert sciAvg != null : "fx:id=\"sciAvg\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert selectStudent != null : "fx:id=\"selectStudent\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         
         
         handler = new DBHandler();
         connection = handler.getConnection();
         String q1 = "Select student_id from students_info";
-
+        
         //Populate the combo box with student ids
         try {
             pst = connection.prepareStatement(q1);
@@ -106,8 +96,21 @@ public class GroveController {
                         firstName.setText("First Name: " + resultSet.getString("first_name"));
                         lastName.setText("Last Name: " + resultSet.getString("last_name"));
                         classification.setText("Classification: " + resultSet.getString("class"));
+                        gender.setText("Gender: " + resultSet.getString("gender"));
                     }
-
+                    // Retrieve and calculate average grade from studentgrades table
+            pst = connection.prepareStatement("SELECT AVG(course_grade) AS average_grade FROM students_grades WHERE student_id = ?");
+            pst.setString(1, selectedStudentId);
+            resultSet = pst.executeQuery();
+            if (resultSet.next()) {
+                double averageGrade = resultSet.getDouble("average_grade");
+                pst = connection.prepareStatement("UPDATE students_info SET gpa = ? WHERE student_id = ?");
+                pst.setDouble(1, averageGrade);
+                pst.setString(2, selectedStudentId);
+                gpa.setText("Average Grade: " + String.format("%.2f", averageGrade));
+            } else {
+                gpa.setText("Average Grade: N/A"); // Handle case where there are no grades
+            }
                     pst.close();
                 } catch (SQLException e) {
                     e.printStackTrace();

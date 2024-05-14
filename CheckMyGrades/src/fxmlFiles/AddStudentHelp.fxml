@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controllers.AddStudentHelpController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddStudentHelpController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="600.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,16 +19,21 @@
             <Font name="Bai Jamjuree Regular" size="25.0" />
          </font>
       </Label>
-      <Label alignment="TOP_CENTER" layoutX="100.0" layoutY="147.0" prefHeight="99.0" prefWidth="400.0" style="-fx-background-color: white;" text="- You may update a student's grades by inputting their EMPLID and entering the course code and their new grade. You may also update a student's gender, name, and major if need be." wrapText="true">
+      <Label alignment="TOP_CENTER" layoutX="100.0" layoutY="142.0" prefHeight="99.0" prefWidth="400.0" style="-fx-background-color: white;" text="- You may update a student's grades by inputting their EMPLID and entering the course code and their new grade. You may also update a student's gender, name and major if need be." wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="100.0" layoutY="246.0" prefHeight="170.0" prefWidth="400.0" style="-fx-background-color: white;" text="- If you are attempting to update a student's information, review all the information you are about to enter.  Any incorrect information regarding the student's name, gender, major, class, or course grade will be updated and added to the database. You may, of course, simply go back and reenter the correct information." wrapText="true">
+      <Label layoutX="100.0" layoutY="241.0" prefHeight="170.0" prefWidth="400.0" style="-fx-background-color: white;" text="- If you are attempting to update a student's information, review all the information you are about to enter.  Any incorrect information regarding the student's name, gender, major, class, or course grade will be updated and added to the database. You may, of course, simply go back and reenter the correct information." wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="addStudent" layoutX="275.0" layoutY="452.0" mnemonicParsing="false" onAction="#addStudentScreen" prefWidth="50.0" text="OK" />
+      <Button fx:id="addStudent" layoutX="274.0" layoutY="525.0" mnemonicParsing="false" onAction="#addStudentScreen" prefWidth="50.0" text="OK" />
+      <Label layoutX="100.0" layoutY="410.0" prefHeight="74.0" prefWidth="401.0" style="-fx-background-color: white;" text="- You may delete students from the database. Simply enter their EMPLID in the &quot;EMPLID&quot; textbox and click on &quot;Delete Student.&quot; " wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
