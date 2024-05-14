@@ -57,6 +57,9 @@ public class GroveController {
     @FXML
     private ComboBox<String> selectStudent;
     
+    @FXML
+    private Button transcript;
+    
     private DBHandler handler;
     private Connection connection;
     private PreparedStatement pst; 
