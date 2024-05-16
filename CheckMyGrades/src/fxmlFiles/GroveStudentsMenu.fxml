@@ -29,6 +29,6 @@
       <Label fx:id="classification" layoutX="14.0" layoutY="310.0" style="-fx-background-color: white;" />
       <Label fx:id="gender" layoutX="14.0" layoutY="360.0" style="-fx-background-color: white;" />
       <Label fx:id="gpa" layoutX="14.0" layoutY="410.0" style="-fx-background-color: white;" />
-      <Button fx:id="transcript" layoutX="242.0" layoutY="511.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="26.0" prefWidth="101.0" text="Get Transcript" />
+      <Button fx:id="transcript" layoutX="242.0" layoutY="511.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="101.0" text="Get Transcript" />
    </children>
 </AnchorPane>
