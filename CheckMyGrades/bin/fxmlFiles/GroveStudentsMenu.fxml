@@ -23,26 +23,12 @@
             <Font name="Bai Jamjuree Regular" size="35.0" />
          </font>
       </Label>
-      <Label fx:id="firstName" layoutX="200.0" layoutY="207.0" style="-fx-background-color: white;">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Label fx:id="lastName" layoutX="200.0" layoutY="253.0" style="-fx-background-color: white;">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Label fx:id="classification" layoutX="200.0" layoutY="299.0" style="-fx-background-color: white;" textAlignment="RIGHT">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Label fx:id="gender" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="200.0" layoutY="346.0" style="-fx-background-color: white;" textAlignment="RIGHT">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Label fx:id="gpa" contentDisplay="CENTER" layoutX="200.0" layoutY="392.0" style="-fx-background-color: white;" textAlignment="CENTER">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
+      <Label fx:id="major" layoutX="14.0" layoutY="160.0" style="-fx-background-color: white;" />
+      <Label fx:id="firstName" layoutX="14.0" layoutY="210.0" style="-fx-background-color: white;" />
+      <Label fx:id="lastName" layoutX="14.0" layoutY="260.0" style="-fx-background-color: white;" />
+      <Label fx:id="classification" layoutX="14.0" layoutY="310.0" style="-fx-background-color: white;" />
+      <Label fx:id="gender" layoutX="14.0" layoutY="360.0" style="-fx-background-color: white;" />
+      <Label fx:id="gpa" layoutX="14.0" layoutY="410.0" style="-fx-background-color: white;" />
       <Button fx:id="transcript" layoutX="242.0" layoutY="511.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="101.0" text="Get Transcript" />
    </children>
 </AnchorPane>

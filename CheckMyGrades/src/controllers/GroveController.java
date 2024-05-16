@@ -46,6 +46,9 @@ public class GroveController {
     private Label gender;
     
     @FXML
+    private Label major;
+    
+    @FXML
     private Button menu;
 
     @FXML
@@ -70,6 +73,34 @@ public class GroveController {
         
         handler = new DBHandler();
         connection = handler.getConnection();
+        
+        selectStudentInfo();
+    }
+    
+    @FXML
+    public void mainMenu(ActionEvent e) throws IOException {
+    	menu.getScene().getWindow().hide();
+    	
+    	Stage mainScreen = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainView.fxml"));
+    	Scene scene = new Scene(root);
+    	mainScreen.setScene(scene);
+    	mainScreen.show();
+    	mainScreen.setResizable(false);
+    }
+    
+    public void addStudentHelpScreen(ActionEvent e) throws IOException {
+    	addStudentHelp.getScene().getWindow().hide();
+    	
+    	Stage addNotes = new Stage();
+    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/AddStudentHelp.fxml"));
+    	Scene scene = new Scene(root);
+    	addNotes.setScene(scene);
+    	addNotes.show();
+    	addNotes.setResizable(false);
+    }
+    
+    public void selectStudentInfo(){
         String q1 = "Select student_id from students_info";
         
         //Populate the combo box with student ids
@@ -98,7 +129,15 @@ public class GroveController {
                         classification.setText("Classification: " + resultSet.getString("class"));
                         gender.setText("Gender: " + resultSet.getString("gender"));
                     }
-                    // Retrieve and calculate average grade from studentgrades table
+                    //Gets students major
+                    pst = connection.prepareStatement("Select * FROM students_majors WHERE student_id = ?");
+                    pst.setString(1, selectedStudentId);
+                    resultSet = pst.executeQuery();
+                    if(resultSet.next()){
+                        major.setText("Major: " + resultSet.getString("major"));
+                    }
+
+                    // Retrieve and calculate gpa from studentgrades table
             pst = connection.prepareStatement("SELECT AVG(course_grade) AS average_grade FROM students_grades WHERE student_id = ?");
             pst.setString(1, selectedStudentId);
             resultSet = pst.executeQuery();
@@ -117,29 +156,7 @@ public class GroveController {
                 }
             }
         });
-    }
-    
-    @FXML
-    public void mainMenu(ActionEvent e) throws IOException {
-    	menu.getScene().getWindow().hide();
-    	
-    	Stage mainScreen = new Stage();
-    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainView.fxml"));
-    	Scene scene = new Scene(root);
-    	mainScreen.setScene(scene);
-    	mainScreen.show();
-    	mainScreen.setResizable(false);
-    }
-    
-    public void addStudentHelpScreen(ActionEvent e) throws IOException {
-    	addStudentHelp.getScene().getWindow().hide();
-    	
-    	Stage addNotes = new Stage();
-    	Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/AddStudentHelp.fxml"));
-    	Scene scene = new Scene(root);
-    	addNotes.setScene(scene);
-    	addNotes.show();
-    	addNotes.setResizable(false);
+
     }
 
 }
