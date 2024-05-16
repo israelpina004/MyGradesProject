@@ -19,6 +19,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 public class GroveController {
 
     @FXML
@@ -60,6 +67,14 @@ public class GroveController {
     private DBHandler handler;
     private Connection connection;
     private PreparedStatement pst; 
+    
+    String first = "";
+    String last = "";
+    String id = "";
+    String gen = "";
+    String year = "";
+    String maj = "";
+    String grade = "N/A";
 
     @FXML
     void initialize() {
@@ -69,6 +84,7 @@ public class GroveController {
         assert lastName != null : "fx:id=\"lastName\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert menu != null : "fx:id=\"menu\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         assert selectStudent != null : "fx:id=\"selectStudent\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
+        assert transcript != null : "fx:id=\"transcript\" was not injected: check your FXML file 'GroveStudentsMenu.fxml'.";
         
         
         handler = new DBHandler();
@@ -117,6 +133,7 @@ public class GroveController {
 
          selectStudent.setOnAction(event -> {
             String selectedStudentId = selectStudent.getValue();
+            id = selectedStudentId;
             if (selectedStudentId != null) {
                 try {
                     // Gets student info from database
@@ -128,6 +145,11 @@ public class GroveController {
                         lastName.setText("Last Name: " + resultSet.getString("last_name"));
                         classification.setText("Classification: " + resultSet.getString("class"));
                         gender.setText("Gender: " + resultSet.getString("gender"));
+                        
+                        first = resultSet.getString("first_name");
+                        last = resultSet.getString("last_name");
+                        year = resultSet.getString("class");
+                        gen = resultSet.getString("gender");
                     }
                     //Gets students major
                     pst = connection.prepareStatement("Select * FROM students_majors WHERE student_id = ?");
@@ -135,6 +157,7 @@ public class GroveController {
                     resultSet = pst.executeQuery();
                     if(resultSet.next()){
                         major.setText("Major: " + resultSet.getString("major"));
+                        maj = resultSet.getString("major");
                     }
 
                     // Retrieve and calculate gpa from studentgrades table
@@ -147,6 +170,7 @@ public class GroveController {
                 pst.setDouble(1, averageGrade);
                 pst.setString(2, selectedStudentId);
                 gpa.setText("Average Grade: " + String.format("%.2f", averageGrade));
+                grade = String.format("%.2f", averageGrade);
             } else {
                 gpa.setText("Average Grade: N/A"); // Handle case where there are no grades
             }
@@ -157,6 +181,43 @@ public class GroveController {
             }
         });
 
+    }
+    
+    @FXML
+    public void generatePDF(ActionEvent e) throws IOException{
+    	try {
+    		String file = "C:\\Users\\orell\\eclipse-workspace\\CheckMyGrades\\transcript.pdf";
+    		Document doc = new Document();
+			PdfWriter.getInstance(doc, new FileOutputStream(file));
+			
+			doc.open();
+			
+			Paragraph p1 = new Paragraph("Student Transcript\n\nFirst Name: " + first + "\n");
+			Paragraph p2 = new Paragraph("Last Name: " + last + "\n");
+			Paragraph p3 = new Paragraph("EMPLID: " + id + "\n");
+			Paragraph p4 = new Paragraph("Gender: " + gen + "\n");
+			Paragraph p5 = new Paragraph("Classification: " + year + "\n");
+			Paragraph p6 = new Paragraph("Major: " + maj + "\n");
+			Paragraph p7 = new Paragraph("GPA: " + grade + "\n");
+			doc.add(p1);
+			doc.add(p2);
+			doc.add(p3);
+			doc.add(p4);
+			doc.add(p5);
+			doc.add(p6);
+			doc.add(p7);
+			
+			doc.close();
+			System.out.println("PDF was made!");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (DocumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			System.err.println(e1);
+		}
     }
 
 }
